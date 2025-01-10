@@ -408,6 +408,7 @@ body {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     min-height: 300px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .family-image {
@@ -419,10 +420,30 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .family-image:hover {
     transform: scale(1.05);
+}
+
+/* 添加触摸设备支持 */
+@media (hover: none) {
+    .family-image:active {
+        transform: scale(1.05);
+    }
+}
+
+/* 确保iOS设备上的滚动流畅 */
+@supports (-webkit-touch-callout: none) {
+    .family-scroll-container {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .family-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
 }
 
 /* 让滚动条更美观 */
