@@ -110,4 +110,48 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Family 移动端轮播
+    const familyMobileSlideshow = document.querySelector('.family-mobile-slideshow');
+    if (familyMobileSlideshow) {
+        const slides = familyMobileSlideshow.querySelectorAll('.family-mobile-slide');
+        const dots = familyMobileSlideshow.querySelectorAll('.dot');
+        let currentSlide = 0;
+        
+        // 显示初始幻灯片
+        showSlide(currentSlide);
+        
+        // 自动轮播
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 4000);
+        
+        // 点击圆点切换幻灯片
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+        
+        // 显示指定幻灯片
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+        
+        // 点击图片预览
+        slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            img.addEventListener('click', function() {
+                previewImage.src = this.src;
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    }
 }); 
